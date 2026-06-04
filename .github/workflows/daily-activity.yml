@@ -1,0 +1,27 @@
+name: Scheduled Daily Commit
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs at 00:00 UTC every day
+
+permissions:
+  contents: write
+
+jobs:
+  make-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update daily log
+        run: |
+          echo "Automated activity check: $(date)" >> automated-log.txt
+
+      - name: Commit and Push
+        run: |
+          git config --local user.email "contact+github@suraba.net"
+          git config --local user.name "suraba-sec"
+          git add automated-log.txt
+          git commit -m "Automated daily infrastructure log [skip ci]"
+          git push
