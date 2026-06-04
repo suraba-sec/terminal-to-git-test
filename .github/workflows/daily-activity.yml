@@ -3,7 +3,7 @@ name: Scheduled Daily Commit
 on:
   schedule:
     - cron: '0 0 * * *' # Runs at 00:00 UTC every day
-
+  workflow_dispatch:   # <-- ADD THIS LINE (Must have 2 spaces indentation)
 permissions:
   contents: write
 
